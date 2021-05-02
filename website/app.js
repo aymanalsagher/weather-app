@@ -3,7 +3,7 @@
 // URLs and Keys
 
 const url = "http://api.openweathermap.org/data/2.5/weather?zip=";
-const key = "254ce9e917f47c34622cc18d9275cfe7";
+const key = "254ce9e917f47c34622cc18d9275cfe7&units=metric";
 
 // DOM selections
 
@@ -15,7 +15,7 @@ const content = document.getElementById("content");
 // Create a new date instance dynamically with JS
 
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+let newDate = d.getMonth() + 1 + "." + d.getDate() + "." + d.getFullYear();
 
 // Listen to user click
 
@@ -28,15 +28,13 @@ function getWeatherAndFeeling(e) {
   const postalCode = document.getElementById("zip").value;
   const feelings = document.getElementById("feelings").value;
 
-  getTemperature(url, postalCode, key)
-    .then((data) => {
-      postData("http://localhost:7777/addData", {
-        date: newDate,
-        temperature: data.main.temp,
-        feeling: feelings,
-      });
-    })
-    .then(() => updateUI);
+  getTemperature(url, postalCode, key).then((data) => {
+    postData("http://localhost:7777/addData", {
+      date: newDate,
+      temperature: data.main.temp,
+      feeling: feelings,
+    }).then(() => updateUI());
+  });
 }
 
 // Async GET data from URL
@@ -77,7 +75,7 @@ const updateUI = async () => {
 
     date.innerHTML = `Date of Request: ${allData.date}`;
     //prettier-ignore
-    temperature.innerHTML = `Temperature: ${allData.temperature} (${Math.floor(allData.temperature - 273.15)} Celsius)`;
+    temperature.innerHTML = `Temperature: ${allData.temperature}`;
     content.innerHTML = `You feel: ${allData.feeling}`;
   } catch (err) {
     console.log("Error", err);
