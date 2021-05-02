@@ -28,13 +28,15 @@ function getWeatherAndFeeling(e) {
   const postalCode = document.getElementById("zip").value;
   const feelings = document.getElementById("feelings").value;
 
-  getTemperature(url, postalCode, key).then((data) => {
-    postData("http://localhost:7777/addData", {
-      date: newDate,
-      temperature: data.main.temp,
-      feeling: feelings,
-    }).then(updateUI());
-  });
+  getTemperature(url, postalCode, key)
+    .then((data) => {
+      postData("http://localhost:7777/addData", {
+        date: newDate,
+        temperature: data.main.temp,
+        feeling: feelings,
+      });
+    })
+    .then(updateUI);
 }
 
 // Async GET data from URL
