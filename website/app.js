@@ -36,7 +36,7 @@ function getWeatherAndFeeling(e) {
         feeling: feelings,
       });
     })
-    .then(updateUI);
+    .then(() => updateUI);
 }
 
 // Async GET data from URL
