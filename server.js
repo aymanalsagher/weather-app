@@ -42,6 +42,6 @@ function addData(request, response) {
   projectData.date = request.body.date;
   projectData.temperature = request.body.temperature;
   projectData.feeling = request.body.feeling;
-  response.end();
+  response.send(projectData);
   console.log(projectData);
 }

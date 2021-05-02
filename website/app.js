@@ -24,6 +24,7 @@ document
   .addEventListener("click", getWeatherAndFeeling);
 
 function getWeatherAndFeeling(e) {
+  e.preventDefault();
   const postalCode = document.getElementById("zip").value;
   const feelings = document.getElementById("feelings").value;
 
@@ -36,7 +37,7 @@ function getWeatherAndFeeling(e) {
   });
 }
 
-// Async GET
+// Async GET data from URL
 const getTemperature = async (url, postalCode, key) => {
   const res = await fetch(url + postalCode + ",us" + "&APPID=" + key);
   try {
@@ -47,7 +48,7 @@ const getTemperature = async (url, postalCode, key) => {
   }
 };
 
-// Async POST
+// Async POST data to the local server
 const postData = async (url = "", data = {}) => {
   const postRequest = await fetch(url, {
     method: "POST",
@@ -71,7 +72,6 @@ const updateUI = async () => {
   const request = await fetch("http://localhost:7777/allData");
   try {
     const allData = await request.json();
-    console.log(allData);
 
     date.innerHTML = `Date of Request: ${allData.date}`;
     //prettier-ignore
